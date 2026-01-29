@@ -10,6 +10,9 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
 
+const ORANGE = "#FF6F00";
+const DARK_ORANGE = "#D84315";
+
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -38,13 +41,15 @@ export default function LoginScreen() {
 
   const handleLogin = () => {
     if (validate()) {
-      // 🔥 Login → Role
       router.push("/role");
     }
   };
 
   return (
-    <LinearGradient colors={["#ffffff", "#ffffff"]} style={styles.container}>
+    <LinearGradient
+      colors={["#FFE6CC", "#FFD1A3", "#FFB870"]} // same as Dashboard background
+      style={styles.gradientContainer}
+    >
       <View style={styles.card}>
         <Text style={styles.title}>KMRL Railway Portal</Text>
 
@@ -100,7 +105,7 @@ export default function LoginScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  gradientContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
@@ -114,6 +119,10 @@ const styles = StyleSheet.create({
     padding: 35,
     borderRadius: 20,
     elevation: 10,
+    shadowColor: "#000",
+    shadowOpacity: 0.25,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 4 },
   },
 
   title: {
@@ -121,6 +130,7 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     textAlign: "center",
     marginBottom: 30,
+    color: "#7A2E00",
   },
 
   input: {
@@ -159,9 +169,9 @@ const styles = StyleSheet.create({
   register: {
     marginTop: 20,
     textAlign: "center",
-    color: "#C2410C",
+    color: DARK_ORANGE,
     fontSize: 14,
-    fontWeight: "500",
+    fontWeight: "600",
   },
 
   googleContainer: {

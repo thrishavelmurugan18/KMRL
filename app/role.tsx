@@ -30,30 +30,37 @@ export default function RoleScreen() {
   };
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      <Text style={styles.title}>Select Your Role</Text>
+    <LinearGradient
+      colors={["#FF6F00", "#D84315"]}
+      style={styles.gradientContainer}
+    >
+      <ScrollView contentContainerStyle={styles.container}>
+        <Text style={styles.title}>Select Your Role</Text>
 
-      {roles.map((r) => (
-        <TouchableOpacity key={r} onPress={() => selectRole(r)} activeOpacity={0.85}>
-          <LinearGradient
-            colors={["#FF6F00", "#D84315"]}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 0 }}
-            style={styles.roleBtn}
+        {roles.map((r) => (
+          <TouchableOpacity
+            key={r}
+            onPress={() => selectRole(r)}
+            activeOpacity={0.8}
           >
-            <Text style={styles.roleText}>{r}</Text>
-          </LinearGradient>
-        </TouchableOpacity>
-      ))}
-    </ScrollView>
+            <View style={styles.roleBtn}>
+              <Text style={styles.roleText}>{r}</Text>
+            </View>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  gradientContainer: {
     flex: 1,
+  },
+
+  container: {
     padding: 20,
-    backgroundColor: "#f4f7f9",
+    paddingBottom: 40,
   },
 
   title: {
@@ -61,20 +68,27 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     marginBottom: 20,
     textAlign: "center",
-    color: "#1f2933",
+    color: "#ffffff",
   },
 
   roleBtn: {
+    backgroundColor: "#ffffff", // White role box
     padding: 15,
     borderRadius: 12,
     marginVertical: 8,
-    alignItems: "center",
-    justifyContent: "center",
+
+    // Shadow for card effect
+    elevation: 5,
+    shadowColor: "#000",
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    shadowOffset: { width: 0, height: 3 },
   },
 
   roleText: {
-    color: "#fff",
-    fontWeight: "600",
+    color: "#D84315", // Dark orange text
+    fontWeight: "700",
+    textAlign: "center",
     fontSize: 15,
   },
 });

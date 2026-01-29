@@ -9,7 +9,9 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
-import axios from "axios";
+
+const ORANGE = "#FF6F00";
+const DARK_ORANGE = "#D84315";
 
 export default function Signup() {
   const router = useRouter();
@@ -48,17 +50,18 @@ export default function Signup() {
     if (!validate()) return;
 
     try {
-      // mock API call
       Alert.alert("Success", "Account created successfully!");
-      // 🔥 Signup → Login
-      router.replace("/login");
+      router.replace("/login"); // Signup → Login
     } catch (err: any) {
       Alert.alert("Error", "Signup failed");
     }
   };
 
   return (
-    <LinearGradient colors={["#ffffff", "#ffffff"]} style={styles.container}>
+    <LinearGradient
+      colors={["#FFE6CC", "#FFD1A3", "#FFB870"]}   // SAME light orange gradient as Login & Dashboard
+      style={styles.gradientContainer}
+    >
       <View style={styles.card}>
         <Text style={styles.title}>KMRL Railway Portal</Text>
         <Text style={styles.subtitle}>Create Account</Text>
@@ -72,6 +75,7 @@ export default function Signup() {
                     ? "Confirm Password"
                     : field.charAt(0).toUpperCase() + field.slice(1)
                 }
+                placeholderTextColor="#6B7280"
                 secureTextEntry={field.includes("password")}
                 keyboardType={field === "phone" ? "numeric" : "default"}
                 style={[styles.input, errors[field] && styles.inputError]}
@@ -89,7 +93,9 @@ export default function Signup() {
 
         <TouchableOpacity activeOpacity={0.85} onPress={handleSignup}>
           <LinearGradient
-            colors={["#FF6F00", "#D84315"]}
+            colors={[ORANGE, DARK_ORANGE]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
             style={styles.button}
           >
             <Text style={styles.buttonText}>Sign Up</Text>
@@ -105,7 +111,7 @@ export default function Signup() {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  gradientContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
@@ -119,18 +125,24 @@ const styles = StyleSheet.create({
     padding: 35,
     borderRadius: 20,
     elevation: 10,
+    shadowColor: "#000",
+    shadowOpacity: 0.25,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 4 },
   },
 
   title: {
     fontSize: 24,
     fontWeight: "700",
     textAlign: "center",
+    color: "#7A2E00",
   },
 
   subtitle: {
     textAlign: "center",
-    color: "#6B7280",
+    color: "#7A2E00",
     marginBottom: 25,
+    fontSize: 14,
   },
 
   input: {
@@ -140,6 +152,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 15,
     marginBottom: 12,
+    backgroundColor: "#FFFFFF",
   },
 
   inputError: {
@@ -168,6 +181,8 @@ const styles = StyleSheet.create({
   register: {
     marginTop: 20,
     textAlign: "center",
-    color: "#C2410C",
+    color: DARK_ORANGE,
+    fontSize: 14,
+    fontWeight: "600",
   },
 });

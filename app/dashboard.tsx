@@ -11,7 +11,6 @@ import { useLocalSearchParams } from "expo-router";
 
 const PRIMARY = "#28a99e";
 const ORANGE = "#FF6F00";
-const DARK_ORANGE = "#D84315";
 
 export default function Dashboard() {
   const params = useLocalSearchParams();
@@ -27,12 +26,14 @@ export default function Dashboard() {
   const fetchDashboard = async () => {
     try {
       const res = await fetch("http://192.168.1.49:5000/api/dashboard/data", {
-        headers: {
-          "x-user-role": role,
-        },
-      });
+  headers: {
+    "x-user-role": role,
+  },
+});
+
 
       const data = await res.json();
+      console.log("Dashboard Data:", data);
       setDashboard(data);
     } catch (err) {
       console.error("Dashboard fetch error:", err);
@@ -67,7 +68,7 @@ export default function Dashboard() {
           <Text style={styles.role}>Role : {dashboard.role}</Text>
         </View>
 
-        {/* STATS CARDS */}
+        {/* STATS */}
         <View style={styles.cardsRow}>
           <View style={[styles.card, { backgroundColor: "#4da6ff" }]}>
             <Text style={styles.cardTitle}>Total Documents</Text>
@@ -103,7 +104,7 @@ export default function Dashboard() {
             <Text style={styles.actionText}>Upload</Text>
           </View>
           <View style={[styles.actionCard, { backgroundColor: ORANGE }]}>
-            <Text style={styles.actionText}>History</Text>
+            <Text style={styles.actionText}>Approvals</Text>
           </View>
           <View style={[styles.actionCard, { backgroundColor: "#4caf50" }]}>
             <Text style={styles.actionText}>Reports</Text>
@@ -126,20 +127,17 @@ export default function Dashboard() {
         <View style={{ height: 90 }} />
       </ScrollView>
 
-      {/* BOTTOM NAVIGATION */}
+      {/* BOTTOM NAV */}
       <View style={styles.bottomNav}>
         <TouchableOpacity style={styles.navItem}>
           <Text style={styles.navTextActive}>Dashboard</Text>
         </TouchableOpacity>
-
         <TouchableOpacity style={styles.navItem}>
           <Text style={styles.navText}>Uploads</Text>
         </TouchableOpacity>
-
         <TouchableOpacity style={styles.navItem}>
           <Text style={styles.navText}>Approvals</Text>
         </TouchableOpacity>
-
         <TouchableOpacity style={styles.navItem}>
           <Text style={styles.navText}>Reports</Text>
         </TouchableOpacity>
@@ -154,106 +152,87 @@ const styles = StyleSheet.create({
     backgroundColor: "#f4f7f9",
     paddingHorizontal: 16,
   },
-
   center: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
-
   header: {
     marginTop: 20,
     marginBottom: 10,
   },
-
   title: {
     fontSize: 22,
     fontWeight: "800",
     color: "#1f2933",
   },
-
   role: {
     fontSize: 14,
     color: "#555",
     marginTop: 4,
   },
-
   cardsRow: {
     flexDirection: "row",
     justifyContent: "space-between",
     marginVertical: 15,
   },
-
   card: {
     width: "30%",
     borderRadius: 14,
     padding: 14,
   },
-
   cardTitle: {
     color: "#fff",
     fontSize: 12,
   },
-
   cardValue: {
     color: "#fff",
     fontSize: 22,
     fontWeight: "bold",
     marginTop: 4,
   },
-
   sectionTitle: {
     fontSize: 18,
     fontWeight: "700",
     marginTop: 20,
     color: "#1f2933",
   },
-
   box: {
     backgroundColor: "#fff",
     borderRadius: 12,
     padding: 12,
     marginTop: 8,
   },
-
   alertItem: {
     marginBottom: 12,
   },
-
   alertTitle: {
     fontWeight: "600",
     color: "#333",
   },
-
   alertTime: {
     fontSize: 12,
     color: "#777",
   },
-
   actionCard: {
     width: "30%",
     padding: 12,
     borderRadius: 14,
     alignItems: "center",
   },
-
   actionText: {
     color: "#fff",
     fontSize: 12,
     fontWeight: "600",
     textAlign: "center",
   },
-
   activityItem: {
     marginBottom: 14,
   },
-
   activityText: {
     fontSize: 13,
     color: "#333",
   },
-
-  /* Bottom Navigation */
   bottomNav: {
     flexDirection: "row",
     justifyContent: "space-around",
@@ -266,18 +245,15 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: "100%",
   },
-
   navItem: {
     alignItems: "center",
     justifyContent: "center",
   },
-
   navText: {
     fontSize: 12,
     color: "#6b7280",
     fontWeight: "500",
   },
-
   navTextActive: {
     fontSize: 12,
     color: PRIMARY,
