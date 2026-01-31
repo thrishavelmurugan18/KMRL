@@ -12,6 +12,9 @@ import { useLocalSearchParams } from "expo-router";
 const PRIMARY = "#28a99e";
 const ORANGE = "#FF6F00";
 
+// 🔥 LIVE BACKEND URL
+const API_URL = "https://kmrl-agq4.onrender.com/api/dashboard/data";
+
 export default function Dashboard() {
   const params = useLocalSearchParams();
   const role = params.role as string;
@@ -25,12 +28,11 @@ export default function Dashboard() {
 
   const fetchDashboard = async () => {
     try {
-      const res = await fetch("http://192.168.1.49:5000/api/dashboard/data", {
-  headers: {
-    "x-user-role": role,
-  },
-});
-
+      const res = await fetch(API_URL, {
+        headers: {
+          "x-user-role": role,
+        },
+      });
 
       const data = await res.json();
       console.log("Dashboard Data:", data);
